@@ -1,44 +1,92 @@
 import React, { useState } from "react";
 import {
-  TextField,
   Button,
   Paper,
   Box,
   Grid,
-  Container,
-  IconButton,
-  Divider,
+  OutlinedInput,
+  InputLabel,
+  FormControl,
+  // TextField,
+  // Container,
+  // IconButton,
+  // Divider,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 
 const User = () => {
   return (
-    <>
-      <div>
-        {/* <Account /> */}
-        <Profile />
-      </div>
-    </>
+    <Box
+      sx={{
+        display: "flex",
+      }}
+    >
+      <Account />
+      <Profile />
+    </Box>
   );
 };
 const Account = () => {
-  return <Paper> Balance = ssss</Paper>;
+  const username = "qwewqwe";
+  const accountID = "9127419";
+  return (
+    <Paper
+      sx={{
+        padding: "3%",
+      }}
+    >
+      <Grid container spacing={4}>
+        <Grid item xs={12}>
+          <FormControl variant="standard" disabled="true" fullWidth>
+            <InputLabel /> Account ID
+            <OutlinedInput value={accountID} />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl variant="standard" disabled="true" fullWidth>
+            <InputLabel /> Username
+            <OutlinedInput value={username} />
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            <Button aria-label="edit" variant="contained">
+              Change Password
+            </Button>
+          </Box>
+        </Grid>
+      </Grid>
+    </Paper>
+  );
 };
 
 const Profile = () => {
-  const textFieldVariant = "outlined";
-  const textFieldMargin = "dense";
-  const [balance, setBalance] = useState("100222");
-  const [username, setUsername] = useState("nabil");
-  const [password, setPassword] = useState("123456");
-  const [fName, setfName] = useState("Nabil ");
-  const [lName, setlName] = useState("Afandi");
-  const [address, setAddress] = useState(
-    "Kompleks Puri Syailendra Jl. Lemah Neundeut No.Kav-30, Sukawarna, Setrasari, West Java"
-  );
-  const [phone, setPhone] = useState("08123456789");
-  const [email, setEmail] = useState("nabil@mail.com");
+  const [formState, setFormState] = useState({
+    fName: "Nabil",
+    lName: "Afandi",
+    address:
+      "Kompleks Puri Syailendra Jl. Lemah Neundeut No.Kav-30, Sukawarna, Setrasari, West Java",
+    phone: "0812345678",
+    email: "nabil@mail.com",
+  });
+
+  const handleChange = ({ target }) => {
+    // const name = target.name;
+    // const value = target.value;
+    // setFormState({
+    //   [name]: value,
+    // });
+    const { name, value } = target;
+    setFormState((prev) => ({ ...prev, [name]: value }));
+  };
+
   const [editing, setEditing] = useState(false);
 
   const handleSave = () => {
@@ -46,108 +94,95 @@ const Profile = () => {
     // Save the updated profile information to the server
     // You can make an API call here to update the user's profile
   };
-  const handleChangePassword = () => {
-    setEditing(false);
-    // Save the updated profile information to the server
-    // You can make an API call here to update the user's profile
-  };
 
   return (
-    <Paper>
-      <Container>
-        <Grid container spacing={1}>
-          <Grid item xs={6}>
-            <TextField
-              notched
-              variant={textFieldVariant}
-              margin={textFieldMargin}
-              label="First Name"
-              value={fName}
-              onChange={(e) => setfName(e.target.value)}
-              disabled={!editing}
-              fullWidth
+    <Paper
+      sx={{
+        padding: "3%",
+      }}
+    >
+      <Grid container spacing={4}>
+        <Grid item xs={6}>
+          <FormControl variant="standard" disabled={!editing} fullWidth>
+            <InputLabel /> First Name
+            <OutlinedInput
+              name="fName"
+              value={formState.fName}
+              onChange={handleChange}
             />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              variant={textFieldVariant}
-              margin={textFieldMargin}
-              label="Last Name"
-              value={lName}
-              onChange={(e) => setlName(e.target.value)}
-              disabled={!editing}
-              fullWidth
+          </FormControl>
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl variant="standard" disabled={!editing} fullWidth>
+            <InputLabel /> Last Name
+            <OutlinedInput
+              name="lName"
+              value={formState.lName}
+              onChange={handleChange}
             />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant={textFieldVariant}
-              margin={textFieldMargin}
-              label="Address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={12}>
+          <FormControl variant="standard" disabled={!editing} fullWidth>
+            <InputLabel /> Address
+            <OutlinedInput
+              name="address"
+              value={formState.address}
+              onChange={handleChange}
               multiline
               rows={4}
-              disabled={!editing}
-              fullWidth
             />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant={textFieldVariant}
-              margin={textFieldMargin}
-              label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={!editing}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant={textFieldVariant}
-              margin={textFieldMargin}
-              label="Phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              disabled={!editing}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Box
-              sx={{
-                display: "flex",
-                // padding: "1%",
-              }}
-            >
-              {editing ? (
-                <Button
-                  aria-label="edit"
-                  size="small"
-                  variant="contained"
-                  onClick={handleSave}
-                  fullWidth
-                >
-                  <SaveIcon />
-                  Save
-                </Button>
-              ) : (
-                <Button
-                  aria-label="edit"
-                  variant="contained"
-                  margin={textFieldMargin}
-                  size="small"
-                  onClick={() => setEditing(true)}
-                  fullWidth
-                >
-                  <EditIcon /> Edit Profile
-                </Button>
-              )}
-            </Box>
-          </Grid>
+          </FormControl>
         </Grid>
-      </Container>
+        <Grid item xs={12}>
+          <FormControl variant="standard" disabled={!editing} fullWidth>
+            <InputLabel /> Email
+            <OutlinedInput
+              name="email"
+              value={formState.email}
+              onChange={handleChange}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl variant="standard" disabled={!editing} fullWidth>
+            <InputLabel /> Phone
+            <OutlinedInput
+              name="phone"
+              value={formState.phone}
+              onChange={handleChange}
+            />
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
+            {editing ? (
+              <Button
+                aria-label="edit"
+                variant="contained"
+                onClick={handleSave}
+              >
+                <SaveIcon />
+                Save
+              </Button>
+            ) : (
+              <Button
+                aria-label="edit"
+                variant="contained"
+                onClick={() => setEditing(true)}
+              >
+                <EditIcon /> Edit Profile
+              </Button>
+            )}
+          </Box>
+        </Grid>
+      </Grid>
     </Paper>
   );
 };

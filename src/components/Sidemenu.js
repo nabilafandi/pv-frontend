@@ -18,7 +18,7 @@ function SideMenu() {
           color: "#A3AED0",
           border: "none",
           top: "0",
-          // position: "fixed",
+          // position: "absolute",
         }}
       >
         <Toolbar

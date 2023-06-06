@@ -110,7 +110,6 @@ const plantList = [
     ],
   },
 ];
-
 function Payment() {
   return (
     <Paper>
