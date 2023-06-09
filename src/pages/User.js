@@ -34,6 +34,7 @@ const Account = () => {
     <Paper
       sx={{
         padding: "3%",
+        marginRight: "2%",
       }}
     >
       <Grid container spacing={4}>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Paper,
@@ -176,6 +177,7 @@ function PlantList({ plantName, plantBills }) {
         <List component="div" disablePadding>
           {plantBills.map((month, key) => (
             <MonthlyBill
+              plantName={plantName}
               date={month.Date}
               bill={month.Bill}
               status={month.status}
@@ -190,37 +192,33 @@ function PlantList({ plantName, plantBills }) {
   );
 }
 
-function MonthlyBill(date) {
+function MonthlyBill(props) {
+  const navigate = useNavigate();
+  const handlePaymentClick = () => {
+    const dateLink = props.date;
+    const plantLink = props.plantName;
+    navigate({
+      pathname: "receipt",
+      search: `plantName=${plantLink}&date=${dateLink}`,
+    });
+  };
   return (
     <>
-      <ListItemButton sx={{ pl: 4 }}>
+      <ListItemButton onClick={handlePaymentClick} sx={{ pl: 4 }}>
         <ListItemText
-          primary={date.date}
-          secondary={"Rp" + date.bill.toLocaleString()}
+          primary={props.date}
+          secondary={"Rp" + props.bill.toLocaleString()}
         />
-        {date.status === "paid" ? (
-          <Alert severity="success"> Paid </Alert>
+        {props.status === "paid" ? (
+          <Alert icon={false} severity="success">
+            Paid
+          </Alert>
         ) : (
-          <Alert severity="warning">Unpaid</Alert>
+          <Alert icon={false} severity="warning">
+            Not Paid Yet
+          </Alert>
         )}
       </ListItemButton>
-      {/* <ListGroup.Item className="d-flex justify-content-between align-items-center">
-        <div className="ms-2 me-auto">
-          <div>
-            <b>{date.date}</b>
-          </div>
-          <p>Rp {date.bill.toLocaleString()}</p>
-        </div>
-        {date.status === "paid" ? (
-          <Button href="#" style={{ width: "123px" }} variant="success">
-            Paid
-          </Button>
-        ) : (
-          <Button href="#" style={{ width: "123px" }} variant="danger">
-            Unpaid
-          </Button>
-        )}
-      </ListGroup.Item> */}
     </>
   );
 }

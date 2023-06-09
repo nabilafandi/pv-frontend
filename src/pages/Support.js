@@ -1,8 +1,4 @@
-import {
-  //  Routes,
-  //   Route,
-  Link,
-} from "react-router-dom";
+import { Routes, Route, Link, NavLink, useParams } from "react-router-dom";
 import {
   React,
   // useState
@@ -12,10 +8,11 @@ import {
   Paper,
   List,
   ListItemButton,
+  ListItem,
   ListSubheader,
   // Box,
   // ListItemIcon,
-  // ListItemText,
+  ListItemText,
   // Collapse,
   // Avatar,
   // Typography,
@@ -84,7 +81,7 @@ function Support() {
             <PostList
               title={post.title}
               content={post.content}
-              postid={key + 1}
+              postid={(key + 1).toString()}
             />
           ))}
         </List>
@@ -95,19 +92,11 @@ function Support() {
 
 function PostList({ title, content, postid }) {
   return (
-    <ListItemButton>
-      <Link to={"post/" + postid} className="link">
-        {title}
-      </Link>
-    </ListItemButton>
-  );
-}
-
-function Posts({ title, content }) {
-  return (
-    <Paper>
-      {title} {content}
-    </Paper>
+    <ListItem>
+      <p>
+        <NavLink to={postid}>{title}</NavLink>
+      </p>
+    </ListItem>
   );
 }
 

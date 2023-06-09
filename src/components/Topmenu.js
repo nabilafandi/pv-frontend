@@ -1,9 +1,6 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
+import { AppBar, Box, Toolbar, IconButton, Badge } from "@mui/material/";
+
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 
@@ -13,7 +10,7 @@ export default function Topmenu() {
       <AppBar
         position="absolute"
         color="transparent"
-        elevation="0"
+        elevation={0}
         sx={{ height: 100, justifyContent: "center" }}
       >
         <Toolbar>

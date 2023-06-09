@@ -14,22 +14,32 @@ import Root from "./pages/Root";
 import Payment from "./pages/Payment";
 import User from "./pages/User";
 import Support from "./pages/Support";
+import Posts from "./pages/Posts";
+import Receipt from "./pages/Receipt";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
-      <Route path="/Payment" element={<Payment />} />
-      <Route path="/User" element={<User />} />
-      <Route path="/Support" element={<Support />} />
+      <Route path="Payment" element={<Payment />} />
+      <Route path="Payment/receipt" element={<Receipt />} />
+      <Route path="User" element={<User />} />
+      <Route path="Support" element={<Support />} />
+      <Route path="Support/:postid" element={<Posts />} />
     </Route>
-  ) 
+  )
 );
+
+const clientId =
+  "856780123921-r9coj8io4n7c6m0s5lt3ctrnaaksjpcb.apps.googleusercontent.com";
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider theme={Theme}>
-        <RouterProvider router={router} />
+        <GoogleOAuthProvider clientId={clientId}>
+          <RouterProvider router={router} />
+        </GoogleOAuthProvider>
       </ThemeProvider>
     </div>
   );
